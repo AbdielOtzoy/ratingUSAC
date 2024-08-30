@@ -1,6 +1,7 @@
 "use client";
 
 import { loginUser } from "@/lib/actions/user.actions";
+import Link from "next/link";
 import React from "react";
 
 const login = () => {
@@ -36,6 +37,12 @@ const login = () => {
           Login
         </button>
       </form>
+
+      <div className="flex justify-between">
+        <Link href="/forgoten" className="text-primary-500 text-blue-400">
+          Olvidaste tu contraseña?
+        </Link>
+      </div>
     </div>
   );
 };
