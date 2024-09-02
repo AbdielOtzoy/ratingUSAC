@@ -1,13 +1,8 @@
+"use client";
+
+import Image from "next/image";
 import Link from "next/link";
-{/*}
-export default function RootLayout({ children }) {
-  return (
-    <div className="flex h-screen flex-col">
-      <main className="flex-1">{children}</main>
-    </div>
-  );
-}
-*/}
+import { logout } from "@/lib/actions/user.actions";
 
 const Layout = ({ children }) => {
   return (
@@ -15,30 +10,52 @@ const Layout = ({ children }) => {
       <nav className="flex justify-between items-center p-4 bg-primary-500 text-white bg-primary-100">
         <div className="flex items-center space-x-4">
           <Link href="/" className="text-white font-bold text-2xl p-2">
-            <img src="/app/src/img/logo.png" alt="logo" className="h-15 w-15" />
+            <Image src="/icons/logo.png" width={50} height={50} alt="logos" />
           </Link>
-          <Link href="/" className="text-3xl font-bold hover:text-primary-200 transition-all ease-out duration-200">
+          <Link
+            href="/"
+            className="text-3xl font-bold hover:text-primary-200 transition-all ease-out duration-200"
+          >
             RatingUsac
           </Link>
         </div>
         <div className="flex items-center space-x-4 px-3">
-          <Link href="/course" className="text-white font-bold hover:text-primary-200 transition-all ease-out duration-200">
-            Cursos Aprobados
+          <Link
+            href="/course"
+            className="text-white font-bold hover:text-primary-200 transition-all ease-out duration-200"
+          >
+            Cursos
           </Link>
-          <Link href="/posts/1234" className="text-white font-bold hover:text-primary-200 transition-all ease-out duration-200">
+          <Link
+            href="/posts/1234"
+            className="text-white font-bold hover:text-primary-200 transition-all ease-out duration-200"
+          >
             Posts
           </Link>
-          <Link href="/posts/create" className="text-white font-bold hover:text-primary-200 transition-all ease-out duration-200">
+          <Link
+            href="/posts/create"
+            className="text-white font-bold hover:text-primary-200 transition-all ease-out duration-200"
+          >
             Crear Post
           </Link>
-          <Link href="/profile" className="text-white font-bold hover:text-primary-200 transition-all ease-out duration-200">
+          <Link
+            href="/profile"
+            className="text-white font-bold hover:text-primary-200 transition-all ease-out duration-200"
+          >
             Perfil
           </Link>
+          <button
+            className="text-white font-bold hover:text-primary-200 transition-all ease-out duration-200"
+            onClick={async () => {
+              await logout();
+              window.location.href = "/login";
+            }}
+          >
+            Logout
+          </button>
         </div>
       </nav>
-      <div className="flex-1 w-3/4">
-        {children}
-      </div>
+      <div className="flex-1 w-3/4">{children}</div>
     </div>
   );
 };

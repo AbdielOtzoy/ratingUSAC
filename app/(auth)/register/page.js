@@ -4,8 +4,8 @@ import Link from "next/link";
 
 import { createUser } from "@/lib/actions/user.actions";
 
-const page = () => {
-  const handleSubmit = (e) => {
+const Register = () => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const user = {
@@ -16,15 +16,17 @@ const page = () => {
       password: e.target.password.value,
     };
 
-    createUser(user);
-    alert("Usuario creado");
-    console.log(user);
+    await createUser(user);
+
+    window.location.href = "/";
   };
 
   return (
     <div className="max-w-screen flex flex-col space-y-6 items-center justify-center text-3xl font-bold p-16">
       <h1 className="text-4xl font-bold text-center">RatingUsac</h1>
-      <h2 className="text-xl font-medium text-center">Registrate para navegar en RatingUsac</h2>
+      <h2 className="text-xl font-medium text-center">
+        Registrate para navegar en RatingUsac
+      </h2>
       <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
         <input
           type="text"
@@ -62,16 +64,26 @@ const page = () => {
           className="p-2 text-3xl font-medium border rounded-lg shadow-lg"
         />
         <div className="flex justify-center pt-3">
-          <button type="submit" className="p-3 w-48 border rounded-3xl bg-primary-200 hover:bg-secondary-200 text-white transition-all duration-500 ease-in-out shadow-lg">
+          <button
+            type="submit"
+            className="p-3 w-48 border rounded-3xl bg-primary-200 hover:bg-secondary-200 text-white transition-all duration-500 ease-in-out shadow-lg"
+          >
             Register
           </button>
         </div>
       </form>
       <div>
-        <Link href="/forgoten" className="text-primary-100 font-light p-3 text-lg text-left hover:text-secondary-100 transition-all duration-300 ease-in-out">
+        <Link
+          href="/forgoten"
+          className="text-primary-100 font-light p-3 text-lg text-left hover:text-secondary-100 transition-all duration-300 ease-in-out"
+        >
           Olvidaste tu contraseña?
-        </Link><br/>
-        <Link href="/login" className="text-primary-100 font-light p-3 text-lg text-left hover:text-secondary-100 transition-all duration-300 ease-in-out">
+        </Link>
+        <br />
+        <Link
+          href="/login"
+          className="text-primary-100 font-light p-3 text-lg text-left hover:text-secondary-100 transition-all duration-300 ease-in-out"
+        >
           Inicia sesión aqui
         </Link>
       </div>
@@ -79,4 +91,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Register;
