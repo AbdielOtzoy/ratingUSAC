@@ -27,7 +27,7 @@ const Layout = ({ children }) => {
             Cursos
           </Link>
           <Link
-            href="/posts/1234"
+            href="/"
             className="text-white font-bold hover:text-primary-200 transition-all ease-out duration-200"
           >
             Posts
@@ -55,7 +55,12 @@ const Layout = ({ children }) => {
           </button>
         </div>
       </nav>
-      <div className="flex-1 w-3/4">{children}</div>
+      {children}
+      <footer className="flex justify-end items-center p-6 bg-primary-500 text-white bg-primary-100">
+        <p className="text-center text-white font-bold text-2xl">
+          RatingUsac
+        </p>
+      </footer>
     </div>
   );
 };
