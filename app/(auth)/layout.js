@@ -7,12 +7,7 @@ const Layout = ({ children }) => {
       <nav className="flex justify-between items-center p-4 bg-primary-500 text-white bg-primary-100">
         <div className="flex items-center space-x-4">
           <Link href="/" className="text-white font-bold text-2xl p-2">
-            <Image
-              src="/public/icons/logo.png"
-              width={50}
-              height={50}
-              alt="logo"
-            />
+            <Image src="/icons/logo.png" width={50} height={50} alt="logo" />
           </Link>
           <Link
             href="/login"
@@ -23,6 +18,11 @@ const Layout = ({ children }) => {
         </div>
       </nav>
       {children}
+      <footer className="flex justify-end items-center p-6 bg-primary-500 text-white bg-primary-100">
+        <p className="text-center text-white font-bold text-2xl">
+          RatingUsac
+        </p>
+      </footer>
     </div>
   );
 };

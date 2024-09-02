@@ -4,7 +4,7 @@ export default async function sessionValidator(req) {
   const sessionCookie = req.cookies.get("session");
   const url = req.url;
 
-  console.log(req.cookies.has("session"));
+  console.log("session: ", req.cookies.has("session"));
 
   if (!sessionCookie) {
     const url = req.nextUrl.clone();
@@ -17,5 +17,6 @@ export default async function sessionValidator(req) {
 }
 
 export const config = {
-  matcher: "/",
+  // home, course, posts, create and posts details with regex
+  matcher: ["/", "/course", "/posts/create", "/profile", "/posts"],
 };
