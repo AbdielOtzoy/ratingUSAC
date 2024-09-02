@@ -18,6 +18,11 @@ const Layout = ({ children }) => {
         </div>
       </nav>
       {children}
+      <footer className="flex justify-end items-center p-6 bg-primary-500 text-white bg-primary-100">
+        <p className="text-center text-white font-bold text-2xl">
+          RatingUsac
+        </p>
+      </footer>
     </div>
   );
 };
