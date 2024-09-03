@@ -1,28 +1,25 @@
-'use client';
+"use client";
 
 import React from "react";
 
 //import {createPost} from "@/lib/actions/post.actions";
 
 const CreatePost = () => {
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const post = {
-      //user: e.target.user.value,
-      user: 1234,
       title: e.target.title.value,
-      course: e.target.course.value,
+      type: e.target.type.value,
+      reference: e.target.reference.value,
       content: e.target.content.value,
-      date: new Date(), //Crea la fecha actual
     };
 
     //await createPost(post);
     console.log(post);
 
     //window.location.href = "/posts";
-  }
+  };
 
   return (
     <div className="flex flex-col justify-center items-center">
@@ -34,20 +31,35 @@ const CreatePost = () => {
             name="title"
             required
             placeholder="Titulo"
-            className="p-2 text-3xl font-medium border rounded-lg shadow-lg"
+            className="p-2 text-2xl font-light border rounded-lg shadow-lg"
           />
+          {/* toggle switch */}
+          <div className="flex justify-center items-center space-x-4">
+            <label htmlFor="type" className="text-2xl font-medium">
+              Preguntar por
+            </label>
+            <select
+              name="type"
+              id="type"
+              className="p-2 text-2xl font-light border rounded-lg shadow-lg"
+            >
+              <option value="post">Curso</option>
+              <option value="question">Catedratico</option>
+            </select>
+          </div>
+
           <input
             type="text"
-            name="course"
+            name="reference"
             required
             placeholder="Curso o Catedratico"
-            className="p-2 text-2xl font-medium border rounded-lg shadow-lg"
+            className="p-2 text-2xl font-light border rounded-lg shadow-lg"
           />
           <textarea
             name="content"
             required
             placeholder="Contenido"
-            className="p-2 text-xl font-light border rounded-lg shadow-lg h-56"
+            className="p-2 text-2xl border rounded-lg shadow-lg h-56 font-light"
           />
           <div className="flex justify-center pt-3">
             <button
@@ -60,7 +72,7 @@ const CreatePost = () => {
         </form>
       </div>
     </div>
-  )
+  );
 };
 
 export default CreatePost;
