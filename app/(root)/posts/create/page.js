@@ -1,24 +1,30 @@
 "use client";
 
+import { createPost } from "@/lib/actions/post.actions";
+import { getSession, getUser } from "@/lib/actions/user.actions";
 import React from "react";
-
-//import {createPost} from "@/lib/actions/post.actions";
 
 const CreatePost = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const post = {
-      title: e.target.title.value,
-      type: e.target.type.value,
-      reference: e.target.reference.value,
-      content: e.target.content.value,
-    };
+    try {
+      const user = await getSession();
 
-    //await createPost(post);
-    console.log(post);
+      let post = {
+        type: e.target.type.value,
+        reference: e.target.reference.value,
+        content: e.target.content.value,
+        user: user.id,
+      };
+      // convertir post a json
+      post = JSON.stringify(post);
+      console.log(post);
 
-    //window.location.href = "/posts";
+      await createPost(post);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -26,13 +32,6 @@ const CreatePost = () => {
       <div className="max-w-screen flex flex-col space-y-6 items-center justify-center text-3xl font-bold py-16">
         <h1 className="text-4xl font-bold text-center">Crear Post</h1>
         <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
-          <input
-            type="text"
-            name="title"
-            required
-            placeholder="Titulo"
-            className="p-2 text-2xl font-light border rounded-lg shadow-lg"
-          />
           {/* toggle switch */}
           <div className="flex justify-center items-center space-x-4">
             <label htmlFor="type" className="text-2xl font-medium">
@@ -43,8 +42,8 @@ const CreatePost = () => {
               id="type"
               className="p-2 text-2xl font-light border rounded-lg shadow-lg"
             >
-              <option value="post">Curso</option>
-              <option value="question">Catedratico</option>
+              <option value="curso">Curso</option>
+              <option value="catedratico">Catedratico</option>
             </select>
           </div>
 
