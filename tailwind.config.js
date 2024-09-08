@@ -16,7 +16,7 @@ module.exports = {
         primary: {
           100: "#5E8591", //Turquesa oscuro
           200: "#9cd3f4", //Turquesa claro
-          300: "#bedecf", //Lima claro
+          300: "#42b5ff", //Lima claro
         },
         secondary: {
           100: "#91504d", //Corinto oscuro

@@ -1,53 +1,64 @@
-'use client';
+"use client";
 
+import { createPost } from "@/lib/actions/post.actions";
+import { getSession, getUser } from "@/lib/actions/user.actions";
 import React from "react";
 
-//import {createPost} from "@/lib/actions/post.actions";
-
 const CreatePost = () => {
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const post = {
-      //user: e.target.user.value,
-      user: 1234,
-      title: e.target.title.value,
-      course: e.target.course.value,
-      content: e.target.content.value,
-      date: new Date(), //Crea la fecha actual
-    };
+    try {
+      const user = await getSession();
 
-    //await createPost(post);
-    console.log(post);
+      let post = {
+        type: e.target.type.value,
+        reference: e.target.reference.value,
+        content: e.target.content.value,
+        user: user.id,
+      };
+      // convertir post a json
+      post = JSON.stringify(post);
+      console.log(post);
 
-    //window.location.href = "/posts";
-  }
+      await createPost(post);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div className="flex flex-col justify-center items-center">
       <div className="max-w-screen flex flex-col space-y-6 items-center justify-center text-3xl font-bold py-16">
         <h1 className="text-4xl font-bold text-center">Crear Post</h1>
         <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
+          {/* toggle switch */}
+          <div className="flex justify-center items-center space-x-4">
+            <label htmlFor="type" className="text-2xl font-medium">
+              Preguntar por
+            </label>
+            <select
+              name="type"
+              id="type"
+              className="p-2 text-2xl font-light border rounded-lg shadow-lg"
+            >
+              <option value="curso">Curso</option>
+              <option value="catedratico">Catedratico</option>
+            </select>
+          </div>
+
           <input
             type="text"
-            name="title"
-            required
-            placeholder="Titulo"
-            className="p-2 text-3xl font-medium border rounded-lg shadow-lg"
-          />
-          <input
-            type="text"
-            name="course"
+            name="reference"
             required
             placeholder="Curso o Catedratico"
-            className="p-2 text-2xl font-medium border rounded-lg shadow-lg"
+            className="p-2 text-2xl font-light border rounded-lg shadow-lg"
           />
           <textarea
             name="content"
             required
             placeholder="Contenido"
-            className="p-2 text-xl font-light border rounded-lg shadow-lg h-56"
+            className="p-2 text-2xl border rounded-lg shadow-lg h-56 font-light"
           />
           <div className="flex justify-center pt-3">
             <button
@@ -60,7 +71,7 @@ const CreatePost = () => {
         </form>
       </div>
     </div>
-  )
+  );
 };
 
 export default CreatePost;
