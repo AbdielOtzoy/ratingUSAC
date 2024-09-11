@@ -6,9 +6,21 @@ import Link from "next/link";
 
 const PostCard = (post) => {
   post = post._doc;
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const comment = {
+      comment: e.target.comment.value,
+    };
+
+    console.log("Comentario enviado: ", comment);
+  };
+  
+
   return (
     <div className="flex justify-center items-center w-full">
-      <div className="max-w-screen-lg w-1/3 bg-white shadow-lg rounded-lg p-6 gap-5 border">
+      <div className="max-w-screen-lg w-2/5 bg-white shadow-xl rounded-xl p-6 gap-5 border transition-all ease-in-out duration-500">
         {/* foto del usuario, usando su inicial */}
 
         <Link href={`/profile/${post.user._id}`}>
@@ -23,8 +35,8 @@ const PostCard = (post) => {
         <p
           className={
             post.type == "curso"
-              ? " bg-orange-300 rounded-md text-center font-semibold text-white w-full mt-2"
-              : "bg-blue-500 rounded-md text-center font-semibold text-white w-full mt-2"
+              ? " bg-blue-500 rounded-md text-center font-semibold text-white w-full mt-2"
+              : "bg-orange-500 rounded-md text-center font-semibold text-white w-full mt-2"
           }
         >
           {post.type} : {post.reference}
@@ -32,6 +44,21 @@ const PostCard = (post) => {
         <p className="text-gray-600 mt-2">{post.content}</p>
 
         {/* Comment Section */}
+        <div className="flex flex-col mt-4">
+          <form>
+            <input
+              type="text"
+              placeholder="Escribe un comentario"
+              className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            <button
+              type="submit"
+              className="bg-primary-100 text-white font-semibold rounded-md mt-2 p-2 hover:bg-primary-200 transition-all ease-in-out duration-500"
+            >
+              Enviar
+            </button>
+          </form>
+        </div>
 
         {/* cantidad de comentarios */}
         <div className="flex flex-row justify-start items-center">
