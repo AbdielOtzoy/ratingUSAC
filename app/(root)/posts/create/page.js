@@ -2,9 +2,15 @@
 
 import { createPost } from "@/lib/actions/post.actions";
 import { getSession, getUser } from "@/lib/actions/user.actions";
-import React from "react";
+import React, {useState} from "react";
 
 const CreatePost = () => {
+
+  const [type, setType] = useState("curso");
+  const handleTypeChange = (e) => {
+    setType(e.target.value);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -33,7 +39,7 @@ const CreatePost = () => {
         <h1 className="text-4xl font-bold text-center">Crear Post</h1>
         <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
           {/* toggle switch */}
-          <div className="flex justify-center items-center space-x-4">
+          <div className="flex justify-center items-center space-x-4" onChange={handleTypeChange}>
             <label htmlFor="type" className="text-2xl font-medium">
               Preguntar por
             </label>
@@ -46,14 +52,38 @@ const CreatePost = () => {
               <option value="catedratico">Catedratico</option>
             </select>
           </div>
+          {/* Curso o Catedratico */}
+          {type === "curso" ? (
+            <div className="flex justify-center items-center space-x-4">
+              <label className="text-xl font-medium">
+                Cursos:
+              </label>
+              <select
+                type="reference"
+                name="reference"
+                className="p-2 text-2xl font-light border rounded-lg shadow-lg"
+              >
+                <option value="Curso A">Curso A</option>
+                <option value="Curso B">Curso B</option>
+              </select>
+            </div>
+          ) : (
+            <div className="flex justify-center items-center space-x-4">
+              <label className="text-xl font-medium">
+                Catedráticos:
+              </label>
+              <select
+                type="reference"  
+                name="reference"
+                className="p-2 text-2xl font-light border rounded-lg shadow-lg"
+              >
+                <option value="Catedratico A">Catedratico A</option>
+                <option value="Catedratico B">Catedratico B</option>
+                <option value="Catedratico C">Catedratico C</option>
+              </select>
+            </div>
+          )}
 
-          <input
-            type="text"
-            name="reference"
-            required
-            placeholder="Curso o Catedratico"
-            className="p-2 text-2xl font-light border rounded-lg shadow-lg"
-          />
           <textarea
             name="content"
             required
