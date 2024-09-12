@@ -20,14 +20,18 @@ import {
 } from "@/components/ui/popover";
 import { cursos, profesores } from "@/constants";
 
-const ComboBox = ({ type, onChange }) => {
+const FilterComboBox = ({ onChange }) => {
   const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState("");
   const [selectedLabel, setSelectedLabel] = React.useState(""); // Add a new state to store the selected label
 
-  const title =
-    type === "curso" ? "Seleccionar cursos" : "Seleccionar catedraticos";
-  const values = type === "curso" ? cursos : profesores;
+  const title = "Seleccionar cursos o catedraticos";
+  const values = [...cursos, ...profesores];
+
+  const handleSelect = (currentValue) => {
+    setSelectedLabel(values.find((v) => v.value === currentValue)?.label);
+    onChange(currentValue);
+    setOpen(false);
+  };
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -78,4 +82,4 @@ const ComboBox = ({ type, onChange }) => {
   );
 };
 
-export default ComboBox;
+export default FilterComboBox;
