@@ -3,12 +3,21 @@ import Image from "next/image";
 import React from "react";
 import ProfilePicture from "./ProfilePicture";
 import Link from "next/link";
+import { Separator } from "@/components/ui/separator";
 
-const PostCard = (post) => {
+import { getUserLogged } from "@/lib/actions/user.actions";
+import CommentCard from "./CommentCard";
+import CommentSection from "./CommentSection";
+
+const PostCard = async (post) => {
   post = post._doc;
+
+  // obtener el usario loggeado
+  const userLogged = await getUserLogged();
+
   return (
-    <div className="flex justify-center items-center w-full">
-      <div className="max-w-screen-lg w-1/3 bg-white shadow-lg rounded-lg p-6 gap-5 border">
+    <div className="flex justify-center items-center w-full flex-col">
+      <div className="max-w-screen-lg w-[500px] max-w-2/5 bg-white shadow-xl rounded-xl p-6 gap-5 border transition-all ease-in-out duration-500">
         {/* foto del usuario, usando su inicial */}
 
         <Link href={`/profile/${post.user._id}`}>
@@ -23,26 +32,31 @@ const PostCard = (post) => {
         <p
           className={
             post.type == "curso"
-              ? " bg-orange-300 rounded-md text-center font-semibold text-white w-full mt-2"
-              : "bg-blue-500 rounded-md text-center font-semibold text-white w-full mt-2"
+              ? " bg-blue-500 rounded-md text-center font-semibold text-white w-full mt-2"
+              : "bg-orange-500 rounded-md text-center font-semibold text-white w-full mt-2"
           }
         >
           {post.type} : {post.reference}
         </p>
         <p className="text-gray-600 mt-2">{post.content}</p>
 
-        {/* Comment Section */}
-
         {/* cantidad de comentarios */}
-        <div className="flex flex-row justify-start items-center">
+        <div className="flex flex-row justify-start items-center mb-2">
           <p>{post.comments.length}</p>
-          <Image
-            src="/icons/comment.svg"
-            alt="comment"
-            width={34}
-            height={34}
-            className="cursor-pointer hover:opacity-70"
-          />
+          <CommentCard info={userLogged} post={post._id} />
+        </div>
+        {post.comments.length > 0 && <Separator />}
+
+        <div className="w-full">
+          {post.comments.length > 0 &&
+            post.comments.map((comment) => (
+              <CommentSection
+                key={comment._id}
+                content={comment.content}
+                user={comment.user}
+                createdAt={comment.createdAt}
+              />
+            ))}
         </div>
       </div>
     </div>

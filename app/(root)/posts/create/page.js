@@ -1,10 +1,17 @@
 "use client";
 
+import ComboBox from "@/components/shared/ComboBox";
 import { createPost } from "@/lib/actions/post.actions";
 import { getSession, getUser } from "@/lib/actions/user.actions";
-import React from "react";
+import React, { useState } from "react";
 
 const CreatePost = () => {
+  const [type, setType] = useState("curso");
+  const [reference, setReference] = useState("");
+  const handleTypeChange = (e) => {
+    setType(e.target.value);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -13,7 +20,7 @@ const CreatePost = () => {
 
       let post = {
         type: e.target.type.value,
-        reference: e.target.reference.value,
+        reference: reference,
         content: e.target.content.value,
         user: user.id,
       };
@@ -33,27 +40,47 @@ const CreatePost = () => {
         <h1 className="text-4xl font-bold text-center">Crear Post</h1>
         <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
           {/* toggle switch */}
-          <div className="flex justify-center items-center space-x-4">
+          <div
+            className="flex justify-center items-center space-x-4"
+            onChange={handleTypeChange}
+          >
             <label htmlFor="type" className="text-2xl font-medium">
               Preguntar por
             </label>
             <select
               name="type"
               id="type"
-              className="p-2 text-2xl font-light border rounded-lg shadow-lg"
+              className="p-2 text-xl font-light border rounded-lg shadow-lg"
             >
               <option value="curso">Curso</option>
               <option value="catedratico">Catedratico</option>
             </select>
           </div>
+          {/* Curso o Catedratico */}
+          {type === "curso" ? (
+            <div className="flex justify-center items-center h-[50px]">
+              <ComboBox
+                type="curso"
+                onChange={(newValue) => {
+                  // Update the reference value here
+                  setReference(newValue);
+                  console.log(newValue);
+                }}
+              />
+            </div>
+          ) : (
+            <div className="flex justify-center items-center h-[50px]">
+              <ComboBox
+                type="catedratico"
+                onChange={(newValue) => {
+                  // Update the reference value here
+                  setReference(newValue);
+                  console.log(newValue);
+                }}
+              />
+            </div>
+          )}
 
-          <input
-            type="text"
-            name="reference"
-            required
-            placeholder="Curso o Catedratico"
-            className="p-2 text-2xl font-light border rounded-lg shadow-lg"
-          />
           <textarea
             name="content"
             required
