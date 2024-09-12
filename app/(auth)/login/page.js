@@ -69,7 +69,7 @@ const Login = () => {
           href="/register"
           className="text-primary-100 font-light p-3 text-lg text-left hover:text-secondary-100 transition-all duration-300 ease-in-out"
         >
-          Registrate aqui
+          Registrate aquí
         </Link>
       </div>
     </div>
