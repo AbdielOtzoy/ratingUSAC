@@ -13,21 +13,29 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import { getSession, updateUserById } from "@/lib/actions/user.actions";
 
 const EditProfileDialog = ({ user }) => {
   const handleSubmit = async (e) => {
-    await connectToDatabase();
-
     e.preventDefault();
 
-    const updatedUser = {
+    const session = await getSession();
+
+    const userUpdated = {
+      _id: session.id,
       nombres: e.target.nombres.value,
       apellidos: e.target.apellidos.value,
       correo: e.target.correo.value,
       password: e.target.password.value,
     };
 
-    console.log(updatedUser);
+    const res = await updateUserById(userUpdated);
+    if (res.error) {
+      alert(res.error);
+      return;
+    }
+
+    alert("Perfil actualizado correctamente");
   };
 
   return (

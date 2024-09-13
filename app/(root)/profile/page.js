@@ -3,7 +3,6 @@ import { getUserLogged } from "@/lib/actions/user.actions";
 import React from "react";
 import EditProfileDialog from "@/components/shared/EditProfileDialog";
 
-
 const Profile = async () => {
   const userLogged = await getUserLogged();
 
@@ -19,9 +18,9 @@ const Profile = async () => {
         <p className="text-gray-600 mt-1.5">{userLogged?.correo}</p>
 
         <p className="text-gray-600 mt-1.5">{userLogged?.registroAcademico}</p>
-        
+
         <EditProfileDialog user={userLogged} />
-      </div>      
+      </div>
     </div>
   );
 };
