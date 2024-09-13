@@ -1,3 +1,13 @@
+export const all = [
+  {
+    value: 'curso',
+    label: 'Cursos',
+  },
+  { value: 'catedratico', 
+    label: 'Catedraticos' 
+  },
+]
+
 export const cursos = [
   {
     value: "Análisis y Diseño de Sistemas 1",
