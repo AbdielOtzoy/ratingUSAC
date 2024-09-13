@@ -36,7 +36,7 @@ const CreatePost = () => {
 
   return (
     <div className="flex flex-col justify-center items-center">
-      <div className="max-w-screen flex flex-col space-y-6 items-center justify-center text-3xl font-bold py-16">
+      <div className="max-w-screen flex flex-col space-y-6 items-center justify-center text-3xl font-bold py-8">
         <h1 className="text-4xl font-bold text-center">Crear Post</h1>
         <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
           {/* toggle switch */}
@@ -90,7 +90,7 @@ const CreatePost = () => {
           <div className="flex justify-center pt-3">
             <button
               type="submit"
-              className="p-3 w-48 border rounded-3xl bg-primary-200 hover:bg-secondary-200 text-white transition-all duration-500 ease-in-out shadow-lg"
+              className="py-2 w-44 border rounded-2xl bg-primary-200 hover:bg-secondary-200 text-white transition-all duration-500 ease-in-out shadow-lg text-xl"
             >
               Crear Post
             </button>
