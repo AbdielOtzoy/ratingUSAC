@@ -3,18 +3,19 @@ import FilterComboBox from "@/components/shared/FilterComboBox";
 import { getAllPosts } from "@/lib/actions/post.actions";
 import { getUserLogged } from "@/lib/actions/user.actions";
 import Image from "next/image";
+import SearchUser from "@/components/shared/SearchUser";
 
 const Home = async () => {
   const posts = await getAllPosts();
   const user = await getUserLogged();
 
   return (
-    <main className="flex flex-col items-center justify-center">
+    <main className="flex flex-col items-center justify-center my-10 space-y-8">
       <h1 className="text-4xl font-bold text-center mt-4">
         Bienvenido {user?.nombres}! 👋
       </h1>
       {/* filter posts by Curso. Catedrático. Nombre de Curso. Nombre de Catedrático. */}
-      <div className="flex items-center justify-center w-2/5 mt-4 space-x-10">
+      <div className="flex items-center justify-center w-auto mt-4 space-x-5">
         <FilterComboBox />
         <Image
             src="/icons/search.svg"
@@ -23,6 +24,7 @@ const Home = async () => {
             height={34}
             className="cursor-pointer hover:opacity-70"
           />
+        <SearchUser />
       </div>
       
 
