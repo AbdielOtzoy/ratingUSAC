@@ -2,6 +2,7 @@ import ProfilePicture from "@/components/shared/ProfilePicture";
 import { getUserLogged } from "@/lib/actions/user.actions";
 import React from "react";
 import EditProfileDialog from "@/components/shared/EditProfileDialog";
+import CourseCard from "@/components/shared/CourseCard";
 
 const Profile = async () => {
   const userLogged = await getUserLogged();
@@ -26,10 +27,11 @@ const Profile = async () => {
           Cursos Aprobados
         </h1>
         <div className="flex flex-col items-center justify-center w-full mt-4 space-y-5">
-          <h1 className="text-2xl font-bold text-center mt-4 text-gray-700">No hay cursos aprovados para este perfil.</h1>
-          <p className="text-gray-600 mt-1.5">Usuario a pedir a llamar los cursos: {userLogged._id}.</p>
+          {userLogged?.cursosAprobados.map((curso) => (
+            <CourseCard key={curso} value={curso} label={curso} type={"view"} />
+          ))}
         </div>
-      </div>      
+      </div>
     </div>
   );
 };
