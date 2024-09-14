@@ -13,10 +13,12 @@ const Register = () => {
       nombres: e.target.nombres.value,
       apellidos: e.target.apellidos.value,
       correo: e.target.correo.value,
+      cursosAprobados: [],
       password: e.target.password.value,
     };
 
-    await createUser(user);
+    const res = await createUser(user);
+    console.log(res);
 
     window.location.href = "/";
   };
