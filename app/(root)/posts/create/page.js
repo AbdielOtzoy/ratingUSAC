@@ -29,6 +29,7 @@ const CreatePost = () => {
       console.log(post);
 
       await createPost(post);
+      alert("Post creado correctamente");
     } catch (error) {
       console.error(error);
     }
