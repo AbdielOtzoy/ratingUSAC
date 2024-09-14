@@ -23,10 +23,10 @@ const Profile = async () => {
       </div>
       <hr className="w-full border-gray-300 mt-5" />
       <div className="flex flex-col items-center justify-center w-full my-2 space-y-3">
-        <h1 className="text-3xl font-bold text-center mt-4">
+        <h1 className="text-3xl font-bold text-center my-4">
           Cursos Aprobados
         </h1>
-        <div className="flex flex-col items-center justify-center w-full mt-4 space-y-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4 w-full px-16 transition-all ease-in-out duration-500">
           {userLogged?.cursosAprobados.map((curso) => (
             <CourseCard key={curso} value={curso} label={curso} type={"view"} />
           ))}
