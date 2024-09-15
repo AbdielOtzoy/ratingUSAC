@@ -18,20 +18,16 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import {all, cursos, profesores } from "@/constants";
+import { all } from "@/constants";
 
-const FilterComboBox = ({ onChange }) => {
+const FilterComboBox = ({ setFilter }) => {
   const [open, setOpen] = React.useState(false);
+  const [value, setValue] = React.useState("");
   const [selectedLabel, setSelectedLabel] = React.useState(""); // Add a new state to store the selected label
 
-  const title = "Seleccionar cursos o catedraticos";
-  const values = [...all,...cursos, ...profesores];
+  const title = "Selecciona filtro";
 
-  const handleSelect = (currentValue) => {
-    setSelectedLabel(values.find((v) => v.value === currentValue)?.label);
-    onChange(currentValue);
-    setOpen(false);
-  };
+  const values = all;
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -58,10 +54,11 @@ const FilterComboBox = ({ onChange }) => {
                   value={value.value}
                   onSelect={(currentValue) => {
                     setValue(currentValue);
-                    onChange(currentValue);
+                    console.log(currentValue);
                     setSelectedLabel(
                       values.find((v) => v.value === currentValue)?.label
                     ); // Update the selected label
+                    setFilter(currentValue); // Update the filter value
                     setOpen(false);
                   }}
                 >
