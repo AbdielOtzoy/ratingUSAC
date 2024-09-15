@@ -44,9 +44,9 @@ const EditProfileDialog = ({ user }) => {
         <Image
           src="/icons/edit.svg"
           alt="edit"
-          width={25}
-          height={25}
-          className="cursor-pointer hover:opacity-70"
+          width={20}
+          height={20}
+          className="cursor-pointer hover:opacity-70 mx-2"
         />
       </DialogTrigger>
       <DialogContent>

@@ -2,7 +2,10 @@
 import React, { useState, useEffect } from "react";
 import CourseCard from "@/components/shared/CourseCard";
 import { cursos } from "@/constants";
-import { addCoursesToUser, getCoursesApproved } from "@/lib/actions/user.actions";
+import {
+  addCoursesToUser,
+  getCoursesApproved,
+} from "@/lib/actions/user.actions";
 
 const Courses = () => {
   const [cursosSeleccionados, setCursosSeleccionados] = useState([]);
@@ -11,6 +14,7 @@ const Courses = () => {
   useEffect(() => {
     const fetchCourses = async () => {
       const res = await getCoursesApproved();
+      console.log(res);
       setCursosAprobados(res);
       setCursosSeleccionados(res);
     };
@@ -35,24 +39,45 @@ const Courses = () => {
 
       {/* Renderiza los cursos */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4 w-full px-16 transition-all ease-in-out duration-500">
-        {cursos.map((curso) => (
-          <CourseCard
-            key={curso.value}
-            value={curso.value}
-            label={curso.label}
-            isApproved={cursosAprobados.includes(curso.value)}
-            onChange={(value, checked) => {
-              if (checked) {
-                setCursosSeleccionados([...cursosSeleccionados, value]);
-              } else {
-                setCursosSeleccionados(
-                  cursosSeleccionados.filter((curso) => curso !== value)
-                );
-              }
-            }}
-            type="edit"
-          />
-        ))}
+        {cursosAprobados.length > 0 &&
+          cursos.map((curso) => (
+            <CourseCard
+              key={curso.value}
+              value={curso.value}
+              label={curso.label}
+              isApproved={cursosAprobados.includes(curso.value)}
+              onChange={(value, checked) => {
+                if (checked) {
+                  setCursosSeleccionados([...cursosSeleccionados, value]);
+                } else {
+                  setCursosSeleccionados(
+                    cursosSeleccionados.filter((curso) => curso !== value)
+                  );
+                }
+              }}
+              type="edit"
+            />
+          ))}
+
+        {cursosAprobados.length === 0 &&
+          cursos.map((curso) => (
+            <CourseCard
+              key={curso.value}
+              value={curso.value}
+              label={curso.label}
+              isApproved={cursosAprobados.includes(curso.value)}
+              onChange={(value, checked) => {
+                if (checked) {
+                  setCursosSeleccionados([...cursosSeleccionados, value]);
+                } else {
+                  setCursosSeleccionados(
+                    cursosSeleccionados.filter((curso) => curso !== value)
+                  );
+                }
+              }}
+              type="edit"
+            />
+          ))}
       </div>
       <button
         className="bg-primary-500 text-white font-semibold mt-10 py-2 px-4 rounded-lg shadow-lg bg-secondary-100 hover:bg-secondary-200 transition duration-300 ease-in-out w-48"
