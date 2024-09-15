@@ -1,3 +1,4 @@
+import CourseCard from "@/components/shared/CourseCard";
 import ProfilePicture from "@/components/shared/ProfilePicture";
 import { getUserById } from "@/lib/actions/user.actions";
 import React from "react";
@@ -19,15 +20,17 @@ const Profile = async ({ params }) => {
         <p className="text-gray-600 mt-1.5">{user?.registroAcademico}</p>
       </div>
       <hr className="w-full border-gray-300 mt-5" />
-      <div className="flex flex-col items-center justify-center w-full mt-2 space-y-3">
-        <h1 className="text-3xl font-bold text-center mt-4">
+      <div className="flex flex-col items-center justify-center w-full my-5 mb-8 space-y-3">
+        <h1 className="text-3xl font-bold text-center my-4">
           Cursos Aprobados
         </h1>
-        <div className="flex flex-col items-center justify-center w-full mt-4 space-y-5">
-          <h1 className="text-2xl font-bold text-center mt-4 text-gray-700">No hay cursos aprovados para este perfil.</h1>
-          <p className="text-gray-600 mt-1.5">Usuario a pedir a llamar los cursos: {user._id}.</p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4 w-full px-16 transition-all ease-in-out duration-500">
+          {user?.cursosAprobados.map((curso) => (
+            <CourseCard key={curso} value={curso} label={curso} type={"view"} />
+          ))}
         </div>
-      </div>  
+        {user?.cursosAprobados.length === 0 && (<h1 className="text-2xl font-bold text-center mt-4 text-gray-700">Este perfil no tiene cursos aprobados.</h1>)}
+      </div>
     </div>
   );
 };

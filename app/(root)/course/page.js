@@ -1,11 +1,22 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import CourseCard from "@/components/shared/CourseCard";
 import { cursos } from "@/constants";
-import { addCoursesToUser } from "@/lib/actions/user.actions";
+import { addCoursesToUser, getCoursesApproved } from "@/lib/actions/user.actions";
 
 const Courses = () => {
   const [cursosSeleccionados, setCursosSeleccionados] = useState([]);
+  const [cursosAprobados, setCursosAprobados] = useState([]);
+
+  useEffect(() => {
+    const fetchCourses = async () => {
+      const res = await getCoursesApproved();
+      setCursosAprobados(res);
+      setCursosSeleccionados(res);
+    };
+
+    fetchCourses();
+  }, []);
 
   const handleSave = async () => {
     console.log(cursosSeleccionados);
@@ -13,6 +24,7 @@ const Courses = () => {
     // send to database select courses and update user
     const res = await addCoursesToUser(cursosSeleccionados);
     console.log(res);
+    alert("Cursos guardados correctamente");
   };
 
   return (
@@ -28,6 +40,7 @@ const Courses = () => {
             key={curso.value}
             value={curso.value}
             label={curso.label}
+            isApproved={cursosAprobados.includes(curso.value)}
             onChange={(value, checked) => {
               if (checked) {
                 setCursosSeleccionados([...cursosSeleccionados, value]);

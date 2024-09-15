@@ -2,8 +2,8 @@
 import React, { useState } from "react";
 
 // CourseCard.js
-const CourseCard = ({ value, label, onChange = () => {}, type }) => {
-  const [checked, setChecked] = useState(false);
+const CourseCard = ({ value, label, onChange = () => {}, type, isApproved}) => {
+  const [checked, setChecked] = useState(isApproved);
 
   const handleCheck = (e) => {
     setChecked(e.target.checked);
