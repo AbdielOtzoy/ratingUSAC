@@ -14,12 +14,8 @@ const page = async ({ params }) => {
     posts = await getPostsByFilter({ filter: params.filter });
   }
 
-  console.log(params.filter);
-
-  console.log(posts);
-
   return (
-    <main className="flex flex-col items-center justify-center my-10 space-y-8">
+    <main className="flex flex-col items-center my-10 space-y-8  min-h-screen">
       <h1 className="text-4xl font-bold text-center mt-4">
         Busqueda por {params.filter} !
       </h1>
@@ -33,7 +29,7 @@ const page = async ({ params }) => {
         {posts.length > 0 ? (
           posts.map((post) => <PostCard key={post._id} {...post} />)
         ) : (
-          <h4 className="text-center text-xl">No hay publicaciones</h4>
+          <h4 className="text-center text-xl">No hay publicaciones.</h4>
         )}
       </div>
     </main>
